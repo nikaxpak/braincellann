@@ -1,0 +1,21 @@
+Package: braincellann
+Type: Package
+Title: Brain Cell Marker Annotation Package
+Version: 0.1.0
+Author: Veronika Pak
+Maintainer: The package maintainer <veronika.pak@mail.mcgill.ca>
+Description: The 'braincellann' package is designed for the annotation of brain cell type-specific gene markers. 
+    It provides functions to annotate gene markers using various databases such as the Human Protein Atlas 
+    and integrates data for analysis and visualization. The package aims to streamline the process of 
+    brain cell annotation and assist in data analysis workflows in single-cell transcriptomics studies.
+License: ...
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    dplyr,
+    tidyr,
+    readxl,
+    tibble,
+    HPAanalyze,
+    decoupleR
+RoxygenNote: 7.3.2

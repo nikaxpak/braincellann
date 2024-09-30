@@ -1,0 +1,441 @@
+library(OmnipathR)
+library(decoupleR)
+library(HPAanalyze)
+library(tibble)
+library(dplyr)
+library(tidyr)
+library(readxl)
+
+# Step 1: Read the CSV file into a data frame
+df <- read.csv("/Users/veronikapak/braincellann/examples/example_list.csv", header = F)
+
+# Step 2: Extract the desired column (e.g., 'column_name')
+column_data <- df$V1
+
+# Step 3: Convert the column to a list
+list <- as.list(column_data)
+
+output2 <- annotateList(list)
+
+annotateList <- function(input_list, column_name = "ListData") {
+  # Input validation
+  if (!is.list(input_list)) {
+    stop("input_list must be a list.")
+  }
+
+  # Convert list to data frame
+  df <- data.frame(markers = unlist(input_list), stringsAsFactors = FALSE)
+  df$index <- seq_len(nrow(df))
+
+  #Upload BRETIGEA
+  load("/Users/veronikapak/braincellann/inst/extdata/markers_df_human_brain.rda")
+  bretigea_db <- markers_df_human_brain;
+
+  # Annotate with BRETIGEA
+  merged_df <- merge(df, markers_df_human_brain, by = "markers", all.x = TRUE)
+
+  annotated_bretigea <- merged_df[order(merged_df$index), ]
+
+  annotated_bretigea <- annotated_bretigea %>%
+    group_by(index) %>%
+    summarise(markers = paste(unique(markers), collapse = ", "),
+              cell = paste(unique(cell), collapse = ", ")) %>%
+    separate(cell, into = paste0("Bretigea_", 1:2), sep = ",")
+
+  # Annotate with CellMarker 2.0
+  excel_file <- "/Users/veronikapak/braincellann/inst/extdata/Cell_marker_Human.xlsx";
+
+  cellmarker_db <- read_excel(excel_file);
+
+  cellmarker <- cellmarker_db %>%
+    filter(tissue_class == "Brain")
+
+  cellmarker <- cellmarker %>%
+    rename(markers = marker)
+
+  merged_df <- merge(df, cellmarker, by = "markers", all.x = TRUE)
+  merged_df <- merged_df[order(merged_df$index), ]
+
+  subset <- merged_df %>%
+    select(markers, index, cell_name)
+
+  combined_df <- subset %>%
+    group_by(index) %>%
+    summarise(markers = paste(unique(markers), collapse = ", "),
+              cell_name = paste(unique(cell_name), collapse = ", ")) %>%
+    separate(cell_name, into = paste0("CellMarker_", 1:2), sep = ",")
+
+  annotated_cellmarker <- combined_df[, -which(names(combined_df) == "index")]
+
+  # Annotate with PanglaoDB
+  data.frame <- get_resource("PanglaoDB")
+  panglaoDB <- data.frame %>%
+    filter(organ %in% c("Brain", "Immune system", "Vasculature"),
+           canonical_marker == 'TRUE',
+           human == 'TRUE')
+
+  panglaoDB <- panglaoDB %>%
+    rename(markers = genesymbol)
+
+  merged_df <- merge(df, panglaoDB, by = "markers", all.x = TRUE)
+  merged_df <- merged_df[order(merged_df$index), ]
+
+  subset <- merged_df %>%
+    select(markers, index, cell_type)
+
+  combined_df <- subset %>%
+    group_by(index) %>%
+    summarise(markers = paste(unique(markers), collapse = ", "),
+              cell_type = paste(unique(cell_type), collapse = ", ")) %>%
+    separate(cell_type, into = paste0("PanglaoDB_", 1:2), sep = ",")
+
+  annotated_panglaodb <- combined_df[, -which(names(combined_df) == "index")]
+
+  # Annotate with Human Protein Atlas
+  hpa.df <- hpaDownload(downloadList = 'Normal tissue')
+
+  tissueList <- c('cerebral cortex', 'cerebellum', 'hypothalamus', 'substantia nigra')
+  levelList <- c('Medium', 'High', 'Ascending')
+  reliability <- c('Approved', 'Enhanced', 'Supported')
+
+  subset <- hpaSubset(data=hpa.df,
+                            targetGene=df[,1],
+                            targetTissue=tissueList)
+
+  hpa <- data.frame(
+    markers = subset[["normal_tissue"]][["gene"]],
+    tissue = subset[["normal_tissue"]][["tissue"]],
+    cell_type = subset[["normal_tissue"]][["cell_type"]],
+    level = subset[["normal_tissue"]][["level"]],
+    reliability = subset[["normal_tissue"]][["reliability"]]
+  )
+
+  hpa <- hpa %>%
+    filter(level %in% c('Medium', 'High', 'Ascending', 'Low'),
+           reliability %in% c('Approved', 'Enhanced', 'Supported'))
+
+  merged_df <- merge(df, hpa, by = "markers", all.x = TRUE)
+
+  merged_df <- merged_df[order(merged_df$index), ]
+
+  subset <- merged_df %>%
+    select(markers, index, cell_type)
+
+  combined_df <- subset %>%
+    group_by(index) %>%
+    summarise(markers = paste(unique(markers), collapse = ", "),
+              cell_type = paste(unique(cell_type), collapse = ", ")) %>%
+    separate(cell_type, into = paste0("HumanProteinAtlas_", 1:2), sep = ",")
+
+  annotated_hpa <- combined_df[, -which(names(combined_df) == "index")]
+
+  # Annotate with Human Protein Atlas 2
+  # Change the timeout to 120 seconds
+  options(timeout = 300)
+
+  # Verify the change
+  getOption("timeout")
+
+  hpa.df2 <- hpaDownload(downloadList = "RNA single cell type tissue cluster")
+
+  subset <- hpaSubset(data=hpa.df2,
+                            targetGene=df[,1],
+                            targetTissue="brain")
+
+  hpa <- data.frame(
+    markers = subset[["rna_single_cell_type_tissue"]][["gene"]],
+    cell_type = subset[["rna_single_cell_type_tissue"]][["cell_type"]],
+    ntpm = subset[["rna_single_cell_type_tissue"]][["ptpm"]]
+  )
+
+  merged_df <- merge(df, hpa, by = "markers", all.x = TRUE)
+
+  merged_df <- merged_df[order(merged_df$index), ]
+
+  # Step 1: Arrange and then deduplicate by keeping the highest-ranked occurrence of each cell_type within each index
+  prepared_df <- merged_df %>%
+    arrange(index, desc(ntpm)) %>%
+    group_by(index, cell_type) %>%
+    filter(row_number() == 1) %>%
+    ungroup()
+
+  # Step 2: Now, rank within each 'index' without worrying about duplicates
+  prepared_df <- prepared_df %>%
+    group_by(index) %>%
+    mutate(rank = row_number()) %>%
+    filter(rank <= 2) %>%
+    ungroup()
+
+  # Step 3: Create a unique identifier for pivoting, as before
+  prepared_df <- prepared_df %>%
+    mutate(cell_type_id = paste0("cell_type_", rank)) %>%
+    select(-rank, -ntpm) # Proceeding without 'ntpm'
+
+  # Step 4: Pivot wider to format the dataframe
+  annotated_hpa2 <- prepared_df %>%
+    pivot_wider(id_cols = c(index, markers),
+                names_from = cell_type_id,
+                values_from = cell_type,
+                values_fill = list(cell_type = NA))
+
+  #Concatenate the results to the table
+  df <- cbind(annotated_bretigea, annotated_cellmarker, annotated_panglaodb, annotated_hpa, annotated_hpa2)
+  duplicated_cols <- duplicated(names(df))
+  df <- df[!duplicated_cols]
+
+  neurons <- c("neu",
+               "Neurons", " Neurons",
+               "Neuron", " Neuron",
+               "Inhibitory neuron", " Inhibitory neuron",
+               "Adrenergic neurons",
+               "Cortical somatostatin (SST) interneuron", " Cortical somatostatin (SST) interneuron",
+               "Sensory neuron", " Sensory neuron",
+               "Somatostatin interneuron",
+               "Motor neuron",
+               "Young Neuron",
+               "Immature neurons", " Immature neurons",
+               "Dopaminergic neurons",
+               "Parvalbumin interneuron",
+               "Glutamatergic neuron", " Glutaminergic neurons",
+               "Excitatory neuron", " Excitatory neuron",
+               "excitatory neurons",
+               "inhibitory neurons",
+               "neuronal projections", " neuronal projections",
+               "Neuroendocrine cells",
+               "Neuroblast",
+               " Neuroblasts",
+               "Pyramidal cells",
+               "Purkinje neurons",
+               "GABAergic neurons", " GABAergic neurons",
+               "Interneurons", " Interneurons",
+               "Cholinergic neurons", " Cholinergic neurons",
+               " Cholinergic neuron",
+               " von Economo neuron(VEN)",
+               " Serotonergic neurons",
+               "Trigeminal neurons",
+               " Lake et al.Science.In1",
+               "Lake et al.Science.In3",
+               "Lake et al.Science.In4", " Lake et al.Science.In4",
+               "Lake et al.Science.In5", " Lake et al.Science.In5",
+               "Lake et al.Science.In8",
+               "Lake et al.Science.Ex1", " Lake et al.Science.Ex1",
+               "Lake et al.Science.Ex2",
+               "Lake et al.Science.Ex3",
+               "Lake et al.Science.Ex4",
+               " Lake et al.Science.Ex6",
+               "Lake et al.Science.Ex8",
+               "Purkinje cells - nucleus",
+               " Purkinje cells - dendrites"," Purkinje cells - dendrites",
+               "neuronal cells", " neuronal cells",
+               "Purkinje cells", " Purkinje cells" ,
+               "Purkinje cells - cytoplasm/membrane", " Purkinje cells - cytoplasm/membrane",
+               "neuronal projections")
+
+  endothelial <- c("end",
+                   "Endothelial cell", " Endothelial cell",
+                   "Endothelial cells", " Endothelial cells",
+                   "endothelial cells", " endothelial cells")
+
+  astrocytes <- c("ast",
+                  "astrocytes",
+                  "Astrocyte", " Astrocyte",
+                  "Astrocytes", " Astrocytes",
+                  "A2 astrocyte",
+                  "A1 astrocyte", " A1 astrocyte",
+                  "Reactive astrocyte", " Reactive astrocyte",
+                  "Mature Astrocyte")
+
+  microglia <- c("mic", " mic",
+                 "microglial cells",
+                 "Microglia", " Microglia",
+                 "Microglial cell", " Microglial cell",
+                 "M1 microglial cell", " M1 microglial cell",
+                 "Homeostatic microglial cell", " Homeostatic microglial cell",
+                 " Disease-associated microglial cell")
+
+  oligodendrocytes <- c("oli", " oli",
+                        "Mature oligodendrocyte", " Mature oligodendrocyte",
+                        "oligodendrocytes",
+                        "Oligodendrocyte‐like cell",
+                        "Oligodendrocyte", " Oligodendrocyte",
+                        "Oligodendrocytes", " Oligodendrocytes",
+                        "Immune oligodendroglial cell(imOLG)")
+
+  opc <- c("opc", " opc",
+           "oligodendrocyte precursor cells",
+           "Oligodendrocyte precursor cell", " Oligodendrocyte precursor cell",
+           "Oligodendrocyte progenitor cell", " Oligodendrocyte progenitor cell",
+           "Oligodendrocyte progenitor cells", " Oligodendrocyte progenitor cells")
+
+  tcells <- c("T cell", " T cell",
+              "T cells", " T cells",
+              "T memory cells",
+              "T helper 2(Th2) cell",
+              "T helper 1(Th1) cell", " T helper 1(Th1) cell",
+              "T helper 17(Th17) cell",
+              "T helper2 (Th2) cell",
+              " T helper cells", "T helper cells",
+              "T follicular helper(Tfh) cell",
+              " T follicular helper cells", "T follicular helper cells",
+              " T regulatory cells", "T regulatory cells",
+              "Cytotoxic CD8 T cell", " Cytotoxic CD8 T cell",
+              "Cytotoxic T cell", " Cytotoxic T cell",
+              "Activated memory T cell",
+              "Activated CD8+ T cell", " Activated CD8+ T cell",
+              "Activated CD4+ T cell",
+              "CD4+ T cell", " CD4+ T cell",
+              "CD8+ T cell", " CD8+ T cell",
+              "Chronically activated CD4+ T cell", " Chronically activated CD8+ T cell",
+              "Regulatory T(Treg) cell", " Regulatory T(Treg) cell",
+              "Effector memory CD4+ T cell",
+              "Effector memory T cell",
+              "Gamma delta T cells", " Gamma delta T cells",
+              "Exhausted T(Tex) cell", " Exhausted T(Tex) cell",
+              "Naive CD8+ T cell", " Naive CD8+ T cell")
+
+  bcells <- c("B cell",
+              "B cells", " B cells",
+              "B cells memory", " B cells memory",
+              "B cells naive", " B cells naive",
+              " Activated B cell")
+
+  nkcells <- c("Natural killer T(NKT) cell", " Natural killer T(NKT) cell",
+               "Natural killer cell", " Natural killer cell",
+               "NK cells", " NK cells",
+               "Natural killer T cells"," Natural killer T cells")
+  rename_if_in_list <- function(x) {
+    x <- trimws(x)  # Remove leading and trailing spaces
+    case_when(
+      x %in% neurons ~ "Neuron",
+      x %in% endothelial ~ "Endothelial",
+      x %in% astrocytes ~ "Astrocyte",
+      x %in% microglia ~ "Microglia",
+      x %in% oligodendrocytes ~ "Oligodendrocyte",
+      x %in% opc ~ "OPC",
+      x %in% tcells ~ "T cell",
+      x %in% bcells ~ "B cell",
+      x %in% nkcells ~ "NK cell",
+      TRUE ~ x  # Return x if it doesn't match any condition
+    )
+  }
+  # Rename values in all columns if they appear in the list of interest
+  df <- df %>%
+    mutate_all(list(~rename_if_in_list(.)))
+
+  # Subset
+  interests <- c("Neuron", "Endothelial", "Astrocyte",
+                 "Microglia", "Oligodendrocyte", "OPC",
+                 "T cell", "B cell", "NK cell", "Pericyte", "Fibroblast")
+
+  subset_consensus <- function(df) {
+    # Function to identify consensus cell type across groups and calculate consensus score
+    find_consensus_and_score <- function(row) {
+      # Ignore the first two columns (index and gene marker)
+      cell_types <- row[-(1:2)]
+      # Split the cell types into 5 groups, each represented by 2 columns
+      groups <- split(cell_types, ceiling(seq_along(cell_types)/2))
+
+      # Determine if a cell type appears in a group, counting it only once per group
+      group_appearances <- sapply(groups, function(group) unique(group))
+
+      # Flatten the list to a vector and count occurrences of each cell type across all groups
+      cell_type_counts <- table(unlist(group_appearances))
+
+      # Identify cell types that appear at least two times across all groups
+      consensus_candidates <- names(cell_type_counts[cell_type_counts >= 2])
+
+      if(length(consensus_candidates) > 0) {
+        # Calculate consensus scores for each candidate
+        candidate_scores <- sapply(consensus_candidates, function(candidate) {
+          score <- 0
+          for (i in seq_along(groups)) {
+            group <- groups[[i]]
+            group_label <- names(row)[(i - 1) * 2 + 3]  # Adjusted index for column labels
+
+            if (group_label %in% c("cell_type_1")) {
+              if (length(which(group == candidate)) == 2 && all(which(group == candidate) == 1:2)) {
+                score <- score + 0.20
+              } else {
+                for (position in which(group == candidate)) {
+                  if (position == 1) {
+                    score <- score + 0.20
+                  } else if (position == 2) {
+                    score <- score + 0.10
+                  }
+                }
+              }
+            } else {
+              for (position in which(group == candidate)) {
+                if (position == 1) {
+                  score <- score + 0.20
+                } else if (position == 2) {
+                  score <- score + 0.10
+                }
+              }
+            }
+          }
+          # Adjust score based on group labels
+          group_labels <- names(row[-(1:2)])
+          for (i in seq_along(groups)) {
+            group_label <- group_labels[(i - 1) * 2 + 1]
+            if (candidate %in% groups[[i]]) {
+              if (group_label %in% c("Bretigea_1", "Bretigea_2", "CellMarker_1", "CellMarker_2")) {
+                score <- score + 0.5
+              } else if (group_label %in% c("HumanProteinAtlas_1", "HumanProteinAtlas_2", "cell_type_1", "cell_type_2")) {
+                score <- score - 0.5
+              }
+            }
+          }
+          return(score)
+        })
+
+        # Choose the cell type with the highest score if there are multiple candidates
+        consensus_cell_type <- consensus_candidates[which.max(candidate_scores)]
+        print(consensus_cell_type)
+        consensus_score <- max(candidate_scores)
+
+        return(c(Consensus = consensus_cell_type, Score = consensus_score))
+      } else {
+        return(c(Consensus = NA, Score = NA))
+      }
+    }
+
+    # Apply the function to each row of the dataframe
+    consensus_info <- t(apply(df, 1, find_consensus_and_score))
+
+    # Convert the result into a dataframe with appropriate column names
+    consensus_df <- as.data.frame(consensus_info, stringsAsFactors = FALSE)
+    names(consensus_df) <- c("Consensus", "Score")
+    #consensus_df$Score <- as.numeric(consensus_df$Score)
+
+    # Combine the original dataframe with the consensus information
+    result_df <- cbind(df, consensus_df)
+
+    # Filter out rows without a valid consensus
+    result_df <- result_df[!is.na(result_df$Consensus), ]
+
+    return(result_df)
+  }
+
+
+  # Subset where at least two columns point to the same value
+  at_least_two_same <- function(row) {
+    any(duplicated(row[row %in% interests]))
+  }
+
+  # Apply the function to each row of the dataframe
+  subset_rows <- apply(df, 1, at_least_two_same)
+
+  # Subset the dataframe based on rows where at least two columns have the same value of interest
+  subset_df <- df[subset_rows, ]
+
+  subset_df <- subset_df %>%
+    mutate(across(everything(), ~na_if(., 'NA')))
+
+  final_df <- subset_consensus(subset_df)
+
+  return(final_df)
+
+}
+
+

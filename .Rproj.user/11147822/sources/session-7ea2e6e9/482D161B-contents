@@ -1,0 +1,96 @@
+# R/subset_consensus.R
+
+#' Identify Consensus Cell Types and Calculate Scores
+#'
+#' @param df A data frame containing cell type annotations across multiple columns.
+#' @return A data frame with consensus cell types and their scores.
+#'
+#' @noRd
+subset_consensus <- function(df) {
+  # Function to identify consensus cell type across groups and calculate consensus score
+  find_consensus_and_score <- function(row) {
+    # Ignore the first two columns (index and gene marker)
+    cell_types <- row[-(1:2)]
+    # Split the cell types into 5 groups, each represented by 2 columns
+    groups <- split(cell_types, ceiling(seq_along(cell_types)/2))
+
+    # Determine if a cell type appears in a group, counting it only once per group
+    group_appearances <- sapply(groups, function(group) unique(group))
+
+    # Flatten the list to a vector and count occurrences of each cell type across all groups
+    cell_type_counts <- table(unlist(group_appearances))
+
+    # Identify cell types that appear at least two times across all groups
+    consensus_candidates <- names(cell_type_counts[cell_type_counts >= 2])
+
+    if(length(consensus_candidates) > 0) {
+      # Calculate consensus scores for each candidate
+      candidate_scores <- sapply(consensus_candidates, function(candidate) {
+        score <- 0
+        for (i in seq_along(groups)) {
+          group <- groups[[i]]
+          group_label <- names(row)[(i - 1) * 2 + 3]  # Adjusted index for column labels
+
+          if (group_label %in% c("cell_type_1")) {
+            if (length(which(group == candidate)) == 2 && all(which(group == candidate) == 1:2)) {
+              score <- score + 0.20
+            } else {
+              for (position in which(group == candidate)) {
+                if (position == 1) {
+                  score <- score + 0.20
+                } else if (position == 2) {
+                  score <- score + 0.10
+                }
+              }
+            }
+          } else {
+            for (position in which(group == candidate)) {
+              if (position == 1) {
+                score <- score + 0.20
+              } else if (position == 2) {
+                score <- score + 0.10
+              }
+            }
+          }
+        }
+        # Adjust score based on group labels
+        group_labels <- names(row[-(1:2)])
+        for (i in seq_along(groups)) {
+          group_label <- group_labels[(i - 1) * 2 + 1]
+          if (candidate %in% groups[[i]]) {
+            if (group_label %in% c("Bretigea_1", "Bretigea_2", "CellMarker_1", "CellMarker_2")) {
+              score <- score + 0.5
+            } else if (group_label %in% c("HumanProteinAtlas_1", "HumanProteinAtlas_2", "cell_type_1", "cell_type_2")) {
+              score <- score - 0.5
+            }
+          }
+        }
+        return(score)
+      })
+
+      # Choose the cell type with the highest score if there are multiple candidates
+      consensus_cell_type <- consensus_candidates[which.max(candidate_scores)]
+      consensus_score <- max(candidate_scores)
+
+      return(c(Consensus = consensus_cell_type, Score = consensus_score))
+    } else {
+      return(c(Consensus = NA, Score = NA))
+    }
+  }
+
+  # Apply the function to each row of the dataframe
+  consensus_info <- t(apply(df, 1, find_consensus_and_score))
+
+  # Convert the result into a dataframe with appropriate column names
+  consensus_df <- as.data.frame(consensus_info, stringsAsFactors = FALSE)
+  names(consensus_df) <- c("Consensus", "Score")
+  #consensus_df$Score <- as.numeric(consensus_df$Score)
+
+  # Combine the original dataframe with the consensus information
+  result_df <- cbind(df, consensus_df)
+
+  # Filter out rows without a valid consensus
+  result_df <- result_df[!is.na(result_df$Consensus), ]
+
+  return(result_df)
+}

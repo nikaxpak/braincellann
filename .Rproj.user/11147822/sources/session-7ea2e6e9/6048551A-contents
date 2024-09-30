@@ -1,0 +1,49 @@
+# R/subset_consensus.R
+
+#' Identify Consensus Cell Types and Calculate Scores
+#'
+#' @param df A data frame containing cell type annotations across multiple columns.
+#' @return A data frame with consensus cell types and their scores.
+#'
+#' @noRd
+subset_consensus <- function(df) {
+  # Define list of interests
+  interests <- c("Neuron", "Endothelial", "Astrocyte",
+                 "Microglia", "Oligodendrocyte", "OPC",
+                 "T cell", "B cell", "NK cell", "Pericyte", "Fibroblast")
+
+  # Function to identify consensus cell type across groups and calculate consensus score
+  find_consensus_and_score <- function(row) {
+    # Extract cell types from the row
+    cell_types <- row[interests]
+
+    # Remove NA values
+    cell_types <- cell_types[!is.na(cell_types)]
+
+    # Count occurrences
+    cell_type_counts <- table(cell_types)
+
+    # Identify cell types that appear at least two times
+    consensus_candidates <- names(cell_type_counts[cell_type_counts >= 2])
+
+    if(length(consensus_candidates) > 0) {
+      # For simplicity, choose the cell type with the highest count
+      consensus_cell_type <- consensus_candidates[which.max(cell_type_counts)]
+      consensus_score <- max(cell_type_counts)
+
+      return(c(Consensus = consensus_cell_type, Score = consensus_score))
+    } else {
+      return(c(Consensus = NA, Score = NA))
+    }
+  }
+
+  # Apply the function to each row
+  consensus_results <- t(apply(df, 1, find_consensus_and_score))
+
+  # Convert to data frame
+  consensus_df <- as.data.frame(consensus_results, stringsAsFactors = FALSE)
+  names(consensus_df) <- c("Consensus", "Score")
+  consensus_df$Score <- as.numeric(consensus_df$Score)
+
+  return(consensus_df)
+}
