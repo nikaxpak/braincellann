@@ -20,7 +20,7 @@ To install braincellann, use the following command:
 install.packages("devtools")
 
 # Install braincellann from GitHub
-devtools::install_github("your-username/braincellann")
+devtools::install_github("nikaxpak/braincellann")
 
 ```
 ## Example
