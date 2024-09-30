@@ -1,3 +1,7 @@
+<div align="center">
+<img src="https://github.com/nikaxpak/braincellann/blob/main/braincellann.png" alt="Alt text" width="800"/>
+</div>
+
 # braincellann
 
 **braincellann** or **BrainCellAnnotate** is an R package designed for annotating gene markers specific to cell types in the human brain using comprehensive public databases, including the Human Protein Atlas (HPA), CellMarker, PanglaoDB, and BRETIGEA.
@@ -35,6 +39,5 @@ df_genes <- data.frame(
 
 # Annotate gene markers
 annotated_data <- annotateList(df_genes)
-
 
 ```
