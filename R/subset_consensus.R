@@ -1,74 +1,98 @@
 # R/subset_consensus.R
 
-#' Identify Consensus Cell Types and Calculate Scores
+#' Identify Consensus Cell Types and Calculate Scores with Feature Importance
 #'
 #' @param df A data frame containing cell type annotations across multiple columns.
+#' @param feature_importances A named vector containing feature importances (e.g., 'Bretigea_1_Microglia' -> 0.105).
 #' @return A data frame with consensus cell types and their scaled scores.
 #'
 #' @noRd
 subset_consensus <- function(df) {
+
+  feature_importances <- c(
+    'Bretigea_1_Microglia' = 0.10534423060378194,
+    'Bretigea_1_Astrocyte' = 0.10119023795445715,
+    'Bretigea_1_Oligodendrocyte' = 0.059798286,
+    'Bretigea_1_Endothelial' = 0.054660831,
+    'PanglaoDB_1_Endothelial' = 0.047365168964057014,
+    'cell_type_1_Neuron' = 0.043544331,
+    'CellMarker_1_Astrocyte' = 0.040819327,
+    'CellMarker_1_Oligodendrocyte' = 0.032590162,
+    'cell_type_2_Neuron' = 0.030488439,
+    'HumanProteinAtlas_1_Neuron' = 0.028815387,
+    'cell_type_1_Microglia' = 0.027871681,
+    'PanglaoDB_2_OPC' = 0.026462154085044928,
+    'cell_type_2_Microglia' = 0.026314308,
+    'cell_type_1_OPC' = 0.025928987135901093,
+    'HumanProteinAtlas_1_Endothelial' = 0.025586259192442343,
+    'cell_type_1_Astrocyte' = 0.019222877525104674,
+    'CellMarker_1_Microglia' = 0.019123490648607258,
+    'PanglaoDB_1_B cell' = 0.019085656039053916,
+    'HumanProteinAtlas_2_Neuron' = 0.018856194876306007,
+    'cell_type_2_Oligodendrocyte' = 0.018431641,
+    'Bretigea_1_Neuron' = 0.017137698981102876,
+    'cell_type_2_OPC' = 0.016683335,
+    'CellMarker_1_Endothelial' = 0.014364052570275444,
+    'CellMarker_1_Neuron' = 0.014273394387421773,
+    'CellMarker_2_Microglia' = 0.013491839737368677,
+    'CellMarker_1_OPC' = 0.011992972750455808,
+    'PanglaoDB_2_Endothelial' = 0.011762679464457223,
+    'PanglaoDB_2_B cell' = 0.011568765110012005,
+    'cell_type_2_Astrocyte' = 0.011105882635877118,
+    'PanglaoDB_1_Neuron' = 0.010954553874500284,
+    'HumanProteinAtlas_2_Endothelial' = 0.010610705103308946,
+    'PanglaoDB_1_Oligodendrocyte' = 0.010486710491576994,
+    'CellMarker_1_NK cell' = 0.008881335,
+    'Bretigea_1_OPC' = 0.007240003,
+    'PanglaoDB_1_OPC' = 0.006993589,
+    'cell_type_1_Oligodendrocyte' = 0.006961914,
+    'Bretigea_2_Oligodendrocyte' = 0.006744688,
+    'CellMarker_1_B cell' = 0.005097431,
+    'CellMarker_2_Neuron' = 0.004304881,
+    'CellMarker_2_Astrocyte' = 0.004237117,
+    'PanglaoDB_2_Neuron' = 0.003980856,
+    'CellMarker_2_Endothelial' = 0.003552217,
+    'PanglaoDB_1_T cell' = 0.003407766,
+    'PanglaoDB_1_Microglia' = 0.003225728,
+    'CellMarker_2_OPC' = 0.003034732,
+    'CellMarker_2_NK cell' = 0.00209988,
+    'CellMarker_2_B cell' = 0.00163962,
+    'Bretigea_2_OPC' = 0.001509208,
+    'CellMarker_1_T cell' = 0.001156792,
+    'PanglaoDB_2_Oligodendrocyte' = 0
+  )
+
   # Function to identify consensus cell type across groups and calculate consensus score
   find_consensus_and_score <- function(row) {
-    # Ignore the first two columns (index and gene marker)
     cell_types <- row[-(1:2)]
-    # Split the cell types into 5 groups, each represented by 2 columns
-    groups <- split(cell_types, ceiling(seq_along(cell_types)/2))
+    groups <- split(cell_types, ceiling(seq_along(cell_types) / 2))
 
-    # Determine if a cell type appears in a group, counting it only once per group
+    # Extract feature names from column names
+    group_labels <- names(row[-(1:2)])
+
     group_appearances <- sapply(groups, function(group) unique(group))
-
-    # Flatten the list to a vector and count occurrences of each cell type across all groups
     cell_type_counts <- table(unlist(group_appearances))
 
-    # Identify cell types that appear at least two times across all groups
     consensus_candidates <- names(cell_type_counts[cell_type_counts >= 2])
 
-    if(length(consensus_candidates) > 0) {
-      # Calculate consensus scores for each candidate
+    if (length(consensus_candidates) > 0) {
       candidate_scores <- sapply(consensus_candidates, function(candidate) {
         score <- 0
         for (i in seq_along(groups)) {
           group <- groups[[i]]
-          group_label <- names(row)[(i - 1) * 2 + 3]  # Adjusted index for column labels
-
-          if (group_label %in% c("cell_type_1")) {
-            if (length(which(group == candidate)) == 2 && all(which(group == candidate) == 1:2)) {
-              score <- score + 0.20
-            } else {
-              for (position in which(group == candidate)) {
-                if (position == 1) {
-                  score <- score + 0.20
-                } else if (position == 2) {
-                  score <- score + 0.10
-                }
-              }
-            }
-          } else {
-            for (position in which(group == candidate)) {
-              if (position == 1) {
-                score <- score + 0.20
-              } else if (position == 2) {
-                score <- score + 0.10
-              }
-            }
-          }
-        }
-        # Adjust score based on group labels
-        group_labels <- names(row[-(1:2)])
-        for (i in seq_along(groups)) {
-          group_label <- group_labels[(i - 1) * 2 + 1]
-          if (candidate %in% groups[[i]]) {
-            if (group_label %in% c("Bretigea_1", "Bretigea_2", "CellMarker_1", "CellMarker_2")) {
-              score <- score + 0.5
-            } else if (group_label %in% c("HumanProteinAtlas_1", "HumanProteinAtlas_2", "cell_type_1", "cell_type_2")) {
-              score <- score - 0.5
+          for (cell_type in group) {
+            # Extract the feature prefix (e.g., "Bretigea_1") and match it with the cell type (e.g., "Microglia")
+            feature_name <- paste0(group_labels[(i - 1) * 2 + 1], "_", cell_type)
+            # Add the corresponding feature importance if it exists
+            if (feature_name %in% names(feature_importances)) {
+              score <- score + feature_importances[feature_name]
             }
           }
         }
         return(score)
       })
 
-      # Choose the cell type with the highest score if there are multiple candidates
+      # Choose the cell type with the highest score
       consensus_cell_type <- consensus_candidates[which.max(candidate_scores)]
       consensus_score <- max(candidate_scores)
 
@@ -78,27 +102,21 @@ subset_consensus <- function(df) {
     }
   }
 
-  # Apply the function to each row of the dataframe
   consensus_info <- t(apply(df, 1, find_consensus_and_score))
 
-  # Convert the result into a dataframe with appropriate column names
   consensus_df <- as.data.frame(consensus_info, stringsAsFactors = FALSE)
   names(consensus_df) <- c("Consensus", "Score")
   consensus_df$Score <- as.numeric(consensus_df$Score)
 
-  # Apply min-max scaling to the scores
   min_score <- min(consensus_df$Score, na.rm = TRUE)
   max_score <- max(consensus_df$Score, na.rm = TRUE)
   consensus_df$Score <- (consensus_df$Score - min_score) / (max_score - min_score)
 
-  # Round the scores to two decimal places
   consensus_df$Score <- round(consensus_df$Score, 2)
 
-  # Combine the original dataframe with the consensus information
   result_df <- cbind(df, consensus_df)
-
-  # Filter out rows without a valid consensus
   result_df <- result_df[!is.na(result_df$Consensus), ]
 
   return(result_df)
 }
+

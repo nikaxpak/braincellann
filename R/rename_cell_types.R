@@ -25,7 +25,7 @@ rename_cell_types <- function(df) {
                " Cholinergic neuron", " von Economo neuron(VEN)", " Serotonergic neurons",
                "Trigeminal neurons", " Lake et al.Science.In1", "Lake et al.Science.In3",
                "Lake et al.Science.In4", " Lake et al.Science.In4", "Lake et al.Science.In5",
-               " Lake et al.Science.In5", "Lake et al.Science.In8",
+               " Lake et al.Science.In5", "Lake et al.Science.In6", "Lake et al.Science.In8",
                "Lake et al.Science.Ex1", " Lake et al.Science.Ex1", "Lake et al.Science.Ex2",
                "Lake et al.Science.Ex3", "Lake et al.Science.Ex4", " Lake et al.Science.Ex6",
                "Lake et al.Science.Ex8", "Purkinje cells - nucleus",
@@ -48,7 +48,8 @@ rename_cell_types <- function(df) {
                  "Microglial cell", " Microglial cell",
                  "M1 microglial cell", " M1 microglial cell",
                  "Homeostatic microglial cell", " Homeostatic microglial cell",
-                 " Disease-associated microglial cell")
+                 " Disease-associated microglial cell", "Macrophage", "Macrophages",
+                 "Microglia-derived tumor-associated macrophage(Mg-TAM)")
 
   oligodendrocytes <- c("oli", " oli", "Mature oligodendrocyte", " Mature oligodendrocyte",
                         "oligodendrocytes", "Oligodendrocyte‐like cell",
@@ -61,36 +62,6 @@ rename_cell_types <- function(df) {
            "Oligodendrocyte progenitor cell", " Oligodendrocyte progenitor cell",
            "Oligodendrocyte progenitor cells", " Oligodendrocyte progenitor cells")
 
-  tcells <- c("T cell", " T cell", "T cells", " T cells",
-              "T memory cells", "T helper 2(Th2) cell",
-              "T helper 1(Th1) cell", " T helper 1(Th1) cell",
-              "T helper 17(Th17) cell", "T helper2 (Th2) cell",
-              " T helper cells", "T helper cells",
-              "T follicular helper(Tfh) cell",
-              " T follicular helper cells", "T follicular helper cells",
-              " T regulatory cells", "T regulatory cells",
-              "Cytotoxic CD8 T cell", " Cytotoxic CD8 T cell",
-              "Cytotoxic T cell", " Cytotoxic T cell",
-              "Activated memory T cell", "Activated CD8+ T cell",
-              " Activated CD8+ T cell", "Activated CD4+ T cell",
-              "CD4+ T cell", " CD4+ T cell",
-              "CD8+ T cell", " CD8+ T cell",
-              "Chronically activated CD4+ T cell", " Chronically activated CD8+ T cell",
-              "Regulatory T(Treg) cell", " Regulatory T(Treg) cell",
-              "Effector memory CD4+ T cell", "Effector memory T cell",
-              "Gamma delta T cells", " Gamma delta T cells",
-              "Exhausted T(Tex) cell", " Exhausted T(Tex) cell",
-              "Naive CD8+ T cell", " Naive CD8+ T cell")
-
-  bcells <- c("B cell", "B cells", " B cells",
-              "B cells memory", " B cells memory",
-              "B cells naive", " B cells naive",
-              " Activated B cell")
-
-  nkcells <- c("Natural killer T(NKT) cell", " Natural killer T(NKT) cell",
-               "Natural killer cell", " Natural killer cell",
-               "NK cells", " NK cells",
-               "Natural killer T cells"," Natural killer T cells")
 
   # Function to rename cell types
   rename_if_in_list <- function(x) {
@@ -102,9 +73,6 @@ rename_cell_types <- function(df) {
       x %in% microglia ~ "Microglia",
       x %in% oligodendrocytes ~ "Oligodendrocyte",
       x %in% opc ~ "OPC",
-      x %in% tcells ~ "T cell",
-      x %in% bcells ~ "B cell",
-      x %in% nkcells ~ "NK cell",
       TRUE ~ x  # Return x if it doesn't match any condition
     )
   }
@@ -113,10 +81,20 @@ rename_cell_types <- function(df) {
   df_renamed <- df %>%
     dplyr::mutate(across(dplyr::everything(), ~rename_if_in_list(.)))
 
-  # Ensure 'index' is retained
-  if(!"index" %in% names(df_renamed)) {
+  # Filter out rows that do not contain the specified cell types
+  valid_cell_types <- c("Neuron", "Endothelial", "Astrocyte", "Microglia", "Oligodendrocyte", "OPC")
+
+  # Replace any values not in the valid cell types with NA
+  df_filtered <- df_renamed %>%
+    dplyr::mutate(across(-c(index, markers), ~ifelse(. %in% valid_cell_types, ., NA)))
+
+  # Ensure 'index' and 'markers' are retained
+  if (!"index" %in% names(df_filtered)) {
     stop("'index' column is missing after renaming cell types.")
   }
+  if (!"markers" %in% names(df_filtered)) {
+    stop("'markers' column is missing after renaming cell types.")
+  }
 
-  return(df_renamed)
+  return(df_filtered)
 }

@@ -1,0 +1,70 @@
+[2024-09-30 20:21:39] [INFO]    [OmnipathR] Welcome to OmnipathR!
+[2024-09-30 20:21:39] [TRACE]   [OmnipathR] Reading JSON from `/Users/veronikapak/Library/Caches/OmnipathR/cache.json` (encoding: UTF-8).
+[2024-09-30 20:21:39] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-09-30 20:21:39] [INFO]    [OmnipathR] Initialized cache: `/Users/veronikapak/Library/Caches/OmnipathR`.
+[2024-09-30 20:21:39] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/db/db_def.json` (encoding: UTF-8).
+[2024-09-30 20:21:39] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-09-30 20:21:39] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/magic_bytes.json` (encoding: UTF-8).
+[2024-09-30 20:21:39] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-09-30 20:21:39] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/urls.json` (encoding: UTF-8).
+[2024-09-30 20:21:39] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-09-30 20:21:39] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/id_types.json` (encoding: UTF-8).
+[2024-09-30 20:21:39] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-09-30 20:21:40] [INFO]    [OmnipathR] Welcome to OmnipathR!
+[2024-09-30 20:21:40] [TRACE]   [OmnipathR] Reading JSON from `/Users/veronikapak/Library/Caches/OmnipathR/cache.json` (encoding: UTF-8).
+[2024-09-30 20:21:40] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-09-30 20:21:40] [INFO]    [OmnipathR] Initialized cache: `/Users/veronikapak/Library/Caches/OmnipathR`.
+[2024-09-30 20:21:40] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/db/db_def.json` (encoding: UTF-8).
+[2024-09-30 20:21:40] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-09-30 20:21:40] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/magic_bytes.json` (encoding: UTF-8).
+[2024-09-30 20:21:40] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-09-30 20:21:40] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/urls.json` (encoding: UTF-8).
+[2024-09-30 20:21:40] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-09-30 20:21:40] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/id_types.json` (encoding: UTF-8).
+[2024-09-30 20:21:40] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-09-30 20:23:40] [TRACE]   [OmnipathR] Reading JSON from `https://omnipathdb.org/resources` (encoding: UTF-8).
+[2024-09-30 20:23:40] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-09-30 20:23:40] [INFO]    [OmnipathR] Loading database `Ensembl and OMA organism names`.
+[2024-09-30 20:23:40] [INFO]    [OmnipathR] Looking up in cache `https://www.ensembl.org/info/about/species.html`: key=7332486db7400730697234bad76ca0c8e4d00799, latest version=1.
+[2024-09-30 20:23:40] [TRACE]   [OmnipathR] Cache file path: /Users/veronikapak/Library/Caches/OmnipathR/7332486db7400730697234bad76ca0c8e4d00799-1.html
+[2024-09-30 20:23:40] [TRACE]   [OmnipathR] Looking up in cache: `https://omabrowser.org/All/oma-species.txt`.
+[2024-09-30 20:23:40] [TRACE]   [OmnipathR] Loaded data from RDS `/Users/veronikapak/Library/Caches/OmnipathR/30e690cbb55dfc63b5903ab337f34ffc2f4be397-1.rds`.
+[2024-09-30 20:23:40] [INFO]    [OmnipathR] Loaded database `Ensembl and OMA organism names`.
+[2024-09-30 20:23:41] [TRACE]   [OmnipathR] Reading JSON from `https://omnipathdb.org/resources` (encoding: UTF-8).
+[2024-09-30 20:23:41] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-09-30 20:23:41] [TRACE]   [OmnipathR] Looking up in cache: `https://omnipathdb.org/annotations?resources=PanglaoDB&license=academic`
+[2024-09-30 20:23:41] [TRACE]   [OmnipathR] Loaded data from RDS `/Users/veronikapak/Library/Caches/OmnipathR/2fd62201e8a0e03a9c4b5db174e29c6ffd074aaf-1.rds`.
+[2024-09-30 20:23:41] [INFO]    [OmnipathR] Loaded from cache: `https://omnipathdb.org/annotations?resources=PanglaoDB&license=academic`
+[2024-09-30 20:23:41] [SUCCESS] [OmnipathR] Loaded 109993 annotation records from cache.
+[2024-09-30 23:23:45] [TRACE]   [OmnipathR] Removing database `Ensembl and OMA organism names` (not used in the past 10800 seconds)
+[2024-10-01 22:20:49] [TRACE]   [OmnipathR] Reading JSON from `https://omnipathdb.org/resources` (encoding: UTF-8).
+[2024-10-01 22:20:49] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-01 22:20:50] [INFO]    [OmnipathR] Loading database `Ensembl and OMA organism names`.
+[2024-10-01 22:20:50] [INFO]    [OmnipathR] Looking up in cache `https://www.ensembl.org/info/about/species.html`: key=7332486db7400730697234bad76ca0c8e4d00799, latest version=1.
+[2024-10-01 22:20:50] [TRACE]   [OmnipathR] Cache file path: /Users/veronikapak/Library/Caches/OmnipathR/7332486db7400730697234bad76ca0c8e4d00799-1.html
+[2024-10-01 22:20:50] [TRACE]   [OmnipathR] Looking up in cache: `https://omabrowser.org/All/oma-species.txt`.
+[2024-10-01 22:20:50] [TRACE]   [OmnipathR] Loaded data from RDS `/Users/veronikapak/Library/Caches/OmnipathR/30e690cbb55dfc63b5903ab337f34ffc2f4be397-1.rds`.
+[2024-10-01 22:20:50] [INFO]    [OmnipathR] Loaded database `Ensembl and OMA organism names`.
+[2024-10-01 22:20:51] [TRACE]   [OmnipathR] Reading JSON from `https://omnipathdb.org/resources` (encoding: UTF-8).
+[2024-10-01 22:20:51] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-01 22:20:51] [TRACE]   [OmnipathR] Looking up in cache: `https://omnipathdb.org/annotations?resources=PanglaoDB&license=academic`
+[2024-10-01 22:20:51] [TRACE]   [OmnipathR] Loaded data from RDS `/Users/veronikapak/Library/Caches/OmnipathR/2fd62201e8a0e03a9c4b5db174e29c6ffd074aaf-1.rds`.
+[2024-10-01 22:20:51] [INFO]    [OmnipathR] Loaded from cache: `https://omnipathdb.org/annotations?resources=PanglaoDB&license=academic`
+[2024-10-01 22:20:51] [SUCCESS] [OmnipathR] Loaded 109993 annotation records from cache.
+[2024-10-01 22:24:51] [TRACE]   [OmnipathR] Reading JSON from `https://omnipathdb.org/resources` (encoding: UTF-8).
+[2024-10-01 22:24:51] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-01 22:24:52] [TRACE]   [OmnipathR] Reading JSON from `https://omnipathdb.org/resources` (encoding: UTF-8).
+[2024-10-01 22:24:52] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-01 22:24:52] [TRACE]   [OmnipathR] Looking up in cache: `https://omnipathdb.org/annotations?resources=PanglaoDB&license=academic`
+[2024-10-01 22:24:52] [TRACE]   [OmnipathR] Loaded data from RDS `/Users/veronikapak/Library/Caches/OmnipathR/2fd62201e8a0e03a9c4b5db174e29c6ffd074aaf-1.rds`.
+[2024-10-01 22:24:52] [INFO]    [OmnipathR] Loaded from cache: `https://omnipathdb.org/annotations?resources=PanglaoDB&license=academic`
+[2024-10-01 22:24:52] [SUCCESS] [OmnipathR] Loaded 109993 annotation records from cache.
+[2024-10-01 22:29:49] [TRACE]   [OmnipathR] Reading JSON from `https://omnipathdb.org/resources` (encoding: UTF-8).
+[2024-10-01 22:29:49] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-01 22:29:50] [TRACE]   [OmnipathR] Reading JSON from `https://omnipathdb.org/resources` (encoding: UTF-8).
+[2024-10-01 22:29:50] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-01 22:29:50] [TRACE]   [OmnipathR] Looking up in cache: `https://omnipathdb.org/annotations?resources=PanglaoDB&license=academic`
+[2024-10-01 22:29:50] [TRACE]   [OmnipathR] Loaded data from RDS `/Users/veronikapak/Library/Caches/OmnipathR/2fd62201e8a0e03a9c4b5db174e29c6ffd074aaf-1.rds`.
+[2024-10-01 22:29:50] [INFO]    [OmnipathR] Loaded from cache: `https://omnipathdb.org/annotations?resources=PanglaoDB&license=academic`
+[2024-10-01 22:29:50] [SUCCESS] [OmnipathR] Loaded 109993 annotation records from cache.
+[2024-10-02 01:37:16] [TRACE]   [OmnipathR] Removing database `Ensembl and OMA organism names` (not used in the past 10800 seconds)
