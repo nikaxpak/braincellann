@@ -12,5 +12,6 @@
 #' @importFrom tibble tibble
 #' @import HPAanalyze
 #' @import decoupleR
+#' @import OmnipathR
 #' @exportPattern ^[^.].*
 "_PACKAGE"
