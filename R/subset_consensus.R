@@ -7,6 +7,7 @@
 #' @return A data frame with consensus cell types and their scaled scores.
 #'
 #' @noRd
+
 subset_consensus <- function(df) {
 
   feature_importances <- c(
@@ -62,37 +63,67 @@ subset_consensus <- function(df) {
     'PanglaoDB_2_Oligodendrocyte' = 0
   )
 
-  # Function to identify consensus cell type across groups and calculate consensus score
+  # Function to calculate candidate scores and find consensus cell type
   find_consensus_and_score <- function(row) {
     cell_types <- row[-(1:2)]
     groups <- split(cell_types, ceiling(seq_along(cell_types) / 2))
 
-    # Extract feature names from column names
     group_labels <- names(row[-(1:2)])
-
     group_appearances <- sapply(groups, function(group) unique(group))
     cell_type_counts <- table(unlist(group_appearances))
 
+    # Check if Bretigea_1 shows 'Oligodendrocyte' or 'OPC'
+    if ('Bretigea_1' %in% names(cell_types) &&
+        cell_types['Bretigea_1'] %in% c('Oligodendrocyte', 'OPC')) {
+
+      # Temporary variable to store the cell type from Bretigea_1
+      cell_type <- cell_types['Bretigea_1']
+
+      # Identify all other features that match the Bretigea_1 cell type
+      other_features <- cell_types[names(cell_types) != 'Bretigea_1' &
+                                     cell_types %in% cell_type]
+
+      if (length(other_features) > 0) {
+        # Check if all other relevant features match with Bretigea_1's cell type
+        if (all(other_features == cell_type)) {
+          # Calculate score based on Bretigea_1 and agreeing features
+          score <- feature_importances[paste0('Bretigea_1_', cell_type)]
+
+          # Add scores of other groups that match the Bretigea_1 cell type
+          score <- score + sum(sapply(names(other_features), function(ct) {
+            feature_name <- paste0(ct, "_", cell_types[ct])
+            return(ifelse(feature_name %in% names(feature_importances),
+                          feature_importances[feature_name], 0))
+          }))
+
+          return(c(Consensus = cell_type, Score = score))
+        }
+      }
+    }
+
+    # If the above condition is not met, proceed with standard consensus logic
     consensus_candidates <- names(cell_type_counts[cell_type_counts >= 2])
 
     if (length(consensus_candidates) > 0) {
       candidate_scores <- sapply(consensus_candidates, function(candidate) {
         score <- 0
+
         for (i in seq_along(groups)) {
           group <- groups[[i]]
           for (cell_type in group) {
-            # Extract the feature prefix (e.g., "Bretigea_1") and match it with the cell type (e.g., "Microglia")
+            # Construct the feature name
             feature_name <- paste0(group_labels[(i - 1) * 2 + 1], "_", cell_type)
-            # Add the corresponding feature importance if it exists
+
+            # Add feature importance if the feature exists
             if (feature_name %in% names(feature_importances)) {
-              score <- score + feature_importances[feature_name]
+              importance <- feature_importances[feature_name]
+              score <- score + importance
             }
           }
         }
         return(score)
       })
 
-      # Choose the cell type with the highest score
       consensus_cell_type <- consensus_candidates[which.max(candidate_scores)]
       consensus_score <- max(candidate_scores)
 
@@ -108,6 +139,7 @@ subset_consensus <- function(df) {
   names(consensus_df) <- c("Consensus", "Score")
   consensus_df$Score <- as.numeric(consensus_df$Score)
 
+  # Normalize the scores
   min_score <- min(consensus_df$Score, na.rm = TRUE)
   max_score <- max(consensus_df$Score, na.rm = TRUE)
   consensus_df$Score <- (consensus_df$Score - min_score) / (max_score - min_score)
@@ -119,4 +151,3 @@ subset_consensus <- function(df) {
 
   return(result_df)
 }
-

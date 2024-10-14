@@ -1,0 +1,122 @@
+[2024-10-04 11:00:37] [INFO]    [OmnipathR] Welcome to OmnipathR!
+[2024-10-04 11:00:37] [TRACE]   [OmnipathR] Reading JSON from `/Users/veronikapak/Library/Caches/OmnipathR/cache.json` (encoding: UTF-8).
+[2024-10-04 11:00:37] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:37] [INFO]    [OmnipathR] Initialized cache: `/Users/veronikapak/Library/Caches/OmnipathR`.
+[2024-10-04 11:00:37] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/db/db_def.json` (encoding: UTF-8).
+[2024-10-04 11:00:37] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:37] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/magic_bytes.json` (encoding: UTF-8).
+[2024-10-04 11:00:37] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:37] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/urls.json` (encoding: UTF-8).
+[2024-10-04 11:00:37] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:37] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/id_types.json` (encoding: UTF-8).
+[2024-10-04 11:00:37] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:43] [INFO]    [OmnipathR] Welcome to OmnipathR!
+[2024-10-04 11:00:43] [TRACE]   [OmnipathR] Reading JSON from `/Users/veronikapak/Library/Caches/OmnipathR/cache.json` (encoding: UTF-8).
+[2024-10-04 11:00:43] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:43] [INFO]    [OmnipathR] Initialized cache: `/Users/veronikapak/Library/Caches/OmnipathR`.
+[2024-10-04 11:00:43] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/db/db_def.json` (encoding: UTF-8).
+[2024-10-04 11:00:43] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:43] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/magic_bytes.json` (encoding: UTF-8).
+[2024-10-04 11:00:43] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:43] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/urls.json` (encoding: UTF-8).
+[2024-10-04 11:00:43] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:43] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/id_types.json` (encoding: UTF-8).
+[2024-10-04 11:00:43] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:44] [INFO]    [OmnipathR] Welcome to OmnipathR!
+[2024-10-04 11:00:44] [TRACE]   [OmnipathR] Reading JSON from `/Users/veronikapak/Library/Caches/OmnipathR/cache.json` (encoding: UTF-8).
+[2024-10-04 11:00:44] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:44] [INFO]    [OmnipathR] Initialized cache: `/Users/veronikapak/Library/Caches/OmnipathR`.
+[2024-10-04 11:00:44] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/db/db_def.json` (encoding: UTF-8).
+[2024-10-04 11:00:44] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:44] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/magic_bytes.json` (encoding: UTF-8).
+[2024-10-04 11:00:44] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:44] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/urls.json` (encoding: UTF-8).
+[2024-10-04 11:00:44] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:44] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/id_types.json` (encoding: UTF-8).
+[2024-10-04 11:00:44] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:45] [INFO]    [OmnipathR] Welcome to OmnipathR!
+[2024-10-04 11:00:45] [TRACE]   [OmnipathR] Reading JSON from `/Users/veronikapak/Library/Caches/OmnipathR/cache.json` (encoding: UTF-8).
+[2024-10-04 11:00:45] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:45] [INFO]    [OmnipathR] Initialized cache: `/Users/veronikapak/Library/Caches/OmnipathR`.
+[2024-10-04 11:00:45] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/db/db_def.json` (encoding: UTF-8).
+[2024-10-04 11:00:45] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:45] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/magic_bytes.json` (encoding: UTF-8).
+[2024-10-04 11:00:45] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:45] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/urls.json` (encoding: UTF-8).
+[2024-10-04 11:00:45] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:45] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/id_types.json` (encoding: UTF-8).
+[2024-10-04 11:00:45] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:47] [INFO]    [OmnipathR] Welcome to OmnipathR!
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] Reading JSON from `/Users/veronikapak/Library/Caches/OmnipathR/cache.json` (encoding: UTF-8).
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:47] [INFO]    [OmnipathR] Initialized cache: `/Users/veronikapak/Library/Caches/OmnipathR`.
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/db/db_def.json` (encoding: UTF-8).
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/magic_bytes.json` (encoding: UTF-8).
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:47] [INFO]    [OmnipathR] Welcome to OmnipathR!
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] Reading JSON from `/Users/veronikapak/Library/Caches/OmnipathR/cache.json` (encoding: UTF-8).
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:47] [INFO]    [OmnipathR] Initialized cache: `/Users/veronikapak/Library/Caches/OmnipathR`.
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/urls.json` (encoding: UTF-8).
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/db/db_def.json` (encoding: UTF-8).
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/id_types.json` (encoding: UTF-8).
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/magic_bytes.json` (encoding: UTF-8).
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/urls.json` (encoding: UTF-8).
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/id_types.json` (encoding: UTF-8).
+[2024-10-04 11:00:47] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:50] [INFO]    [OmnipathR] Welcome to OmnipathR!
+[2024-10-04 11:00:50] [TRACE]   [OmnipathR] Reading JSON from `/Users/veronikapak/Library/Caches/OmnipathR/cache.json` (encoding: UTF-8).
+[2024-10-04 11:00:50] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:50] [INFO]    [OmnipathR] Initialized cache: `/Users/veronikapak/Library/Caches/OmnipathR`.
+[2024-10-04 11:00:50] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/db/db_def.json` (encoding: UTF-8).
+[2024-10-04 11:00:50] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:50] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/magic_bytes.json` (encoding: UTF-8).
+[2024-10-04 11:00:50] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:50] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/urls.json` (encoding: UTF-8).
+[2024-10-04 11:00:50] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:00:50] [TRACE]   [OmnipathR] Reading JSON from `/Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/OmnipathR/internal/id_types.json` (encoding: UTF-8).
+[2024-10-04 11:00:50] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:01:06] [TRACE]   [OmnipathR] Reading JSON from `https://omnipathdb.org/resources` (encoding: UTF-8).
+[2024-10-04 11:01:06] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:01:06] [INFO]    [OmnipathR] Loading database `Ensembl and OMA organism names`.
+[2024-10-04 11:01:06] [INFO]    [OmnipathR] Looking up in cache `https://www.ensembl.org/info/about/species.html`: key=7332486db7400730697234bad76ca0c8e4d00799, latest version=1.
+[2024-10-04 11:01:06] [TRACE]   [OmnipathR] Cache file path: /Users/veronikapak/Library/Caches/OmnipathR/7332486db7400730697234bad76ca0c8e4d00799-1.html
+[2024-10-04 11:01:07] [TRACE]   [OmnipathR] Looking up in cache: `https://omabrowser.org/All/oma-species.txt`.
+[2024-10-04 11:01:07] [TRACE]   [OmnipathR] Loaded data from RDS `/Users/veronikapak/Library/Caches/OmnipathR/30e690cbb55dfc63b5903ab337f34ffc2f4be397-1.rds`.
+[2024-10-04 11:01:07] [INFO]    [OmnipathR] Loaded database `Ensembl and OMA organism names`.
+[2024-10-04 11:01:07] [TRACE]   [OmnipathR] Reading JSON from `https://omnipathdb.org/resources` (encoding: UTF-8).
+[2024-10-04 11:01:08] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 11:01:08] [TRACE]   [OmnipathR] Looking up in cache: `https://omnipathdb.org/annotations?resources=PanglaoDB&license=academic`
+[2024-10-04 11:01:08] [TRACE]   [OmnipathR] Loaded data from RDS `/Users/veronikapak/Library/Caches/OmnipathR/2fd62201e8a0e03a9c4b5db174e29c6ffd074aaf-1.rds`.
+[2024-10-04 11:01:08] [INFO]    [OmnipathR] Loaded from cache: `https://omnipathdb.org/annotations?resources=PanglaoDB&license=academic`
+[2024-10-04 11:01:08] [SUCCESS] [OmnipathR] Loaded 109993 annotation records from cache.
+[2024-10-04 14:01:09] [TRACE]   [OmnipathR] Removing database `Ensembl and OMA organism names` (not used in the past 10800 seconds)
+[2024-10-04 16:01:59] [TRACE]   [OmnipathR] Reading JSON from `https://omnipathdb.org/resources` (encoding: UTF-8).
+[2024-10-04 16:01:59] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 16:01:59] [INFO]    [OmnipathR] Loading database `Ensembl and OMA organism names`.
+[2024-10-04 16:01:59] [INFO]    [OmnipathR] Looking up in cache `https://www.ensembl.org/info/about/species.html`: key=7332486db7400730697234bad76ca0c8e4d00799, latest version=1.
+[2024-10-04 16:01:59] [TRACE]   [OmnipathR] Cache file path: /Users/veronikapak/Library/Caches/OmnipathR/7332486db7400730697234bad76ca0c8e4d00799-1.html
+[2024-10-04 16:01:59] [TRACE]   [OmnipathR] Looking up in cache: `https://omabrowser.org/All/oma-species.txt`.
+[2024-10-04 16:01:59] [TRACE]   [OmnipathR] Loaded data from RDS `/Users/veronikapak/Library/Caches/OmnipathR/30e690cbb55dfc63b5903ab337f34ffc2f4be397-1.rds`.
+[2024-10-04 16:01:59] [INFO]    [OmnipathR] Loaded database `Ensembl and OMA organism names`.
+[2024-10-04 16:02:00] [TRACE]   [OmnipathR] Reading JSON from `https://omnipathdb.org/resources` (encoding: UTF-8).
+[2024-10-04 16:02:00] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 16:02:00] [TRACE]   [OmnipathR] Looking up in cache: `https://omnipathdb.org/annotations?resources=PanglaoDB&license=academic`
+[2024-10-04 16:02:00] [TRACE]   [OmnipathR] Loaded data from RDS `/Users/veronikapak/Library/Caches/OmnipathR/2fd62201e8a0e03a9c4b5db174e29c6ffd074aaf-1.rds`.
+[2024-10-04 16:02:00] [INFO]    [OmnipathR] Loaded from cache: `https://omnipathdb.org/annotations?resources=PanglaoDB&license=academic`
+[2024-10-04 16:02:00] [SUCCESS] [OmnipathR] Loaded 109993 annotation records from cache.
+[2024-10-04 16:02:45] [TRACE]   [OmnipathR] Reading JSON from `https://omnipathdb.org/resources` (encoding: UTF-8).
+[2024-10-04 16:02:45] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 16:02:46] [TRACE]   [OmnipathR] Reading JSON from `https://omnipathdb.org/resources` (encoding: UTF-8).
+[2024-10-04 16:02:46] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2024-10-04 16:02:46] [TRACE]   [OmnipathR] Looking up in cache: `https://omnipathdb.org/annotations?resources=PanglaoDB&license=academic`
+[2024-10-04 16:02:46] [TRACE]   [OmnipathR] Loaded data from RDS `/Users/veronikapak/Library/Caches/OmnipathR/2fd62201e8a0e03a9c4b5db174e29c6ffd074aaf-1.rds`.
+[2024-10-04 16:02:46] [INFO]    [OmnipathR] Loaded from cache: `https://omnipathdb.org/annotations?resources=PanglaoDB&license=academic`
+[2024-10-04 16:02:46] [SUCCESS] [OmnipathR] Loaded 109993 annotation records from cache.
+[2024-10-04 19:12:44] [TRACE]   [OmnipathR] Removing database `Ensembl and OMA organism names` (not used in the past 10800 seconds)
