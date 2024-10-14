@@ -12,9 +12,6 @@ annotate_panglaodb <- function(df) {
   # Load PanglaoDB data using get_resource (assumes this function is defined elsewhere)
   data.frame <- get_resource("PanglaoDB")
 
-  if (!is.data.frame(panglaoDB)) {
-    stop("PanglaoDB resource could not be retrieved.")
-  }
   panglaoDB <- data.frame %>%
     filter(organ %in% c("Brain", "Immune system", "Vasculature"),
            canonical_marker == 'TRUE',

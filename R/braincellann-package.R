@@ -6,7 +6,7 @@
 #'
 #'#' @name braincellann
 #' @keywords internal
-#' @importFrom dplyr select mutate arrange group_by summarise left_join
+#' @import dplyr
 #' @importFrom tidyr separate pivot_wider
 #' @importFrom readxl read_excel
 #' @importFrom tibble tibble
