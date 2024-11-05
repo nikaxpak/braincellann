@@ -8,7 +8,7 @@
 The package presents data for comparison in an accessible and convenient way by simplifying literature search.
 
 ## Features
-* **Gene Marker Annotation:** Eeasily compare cell labels across multiple curated reference databases and reach consensus annotation.
+* **Gene Marker Annotation:** Easily compare cell labels across multiple curated reference databases and reach consensus annotation.
 * **Consensus Calculation:** Identify consensus cell types from multiple sources and calculate a confidence score based on the frequency of appearances and database-specific weights.
 * **Database-specific Weights:** Some databases predict certain cell types more accurately than others. Weights for specific values from these databases were assigned using feature importance weights from Random Forest to match cell type annotations from the [Allen Institute's ABC Whole-Brain Human Atlas](https://portal.brain-map.org/atlases-and-data/bkp/abc-atlas).
 * **Tissue-specific and Species-specific:** Markers and cell types are specific to human brain tissue.
