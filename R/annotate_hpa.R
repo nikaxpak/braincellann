@@ -88,7 +88,7 @@ annotate_hpa <- function(df) {
 
   # Step 3: Create a unique identifier for pivoting, as before
   prepared_df <- prepared_df %>%
-    mutate(cell_type_id = paste0("cell_type_", rank)) %>%
+    mutate(cell_type_id = paste0("HumanProteinAtlas.Sc_", rank)) %>%
     select(-rank, -ntpm) # Proceeding without 'ntpm'
 
   # Step 4: Pivot wider to format the dataframe
