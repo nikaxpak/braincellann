@@ -13,12 +13,19 @@ The package presents data for comparison in an accessible and convenient way by 
 * **Database-specific Weights:** Some databases predict certain cell types more accurately than others. Weights for specific values from these databases were assigned using feature importance weights from Random Forest to match cell type annotations from the [Allen Institute's ABC Whole-Brain Human Atlas](https://portal.brain-map.org/atlases-and-data/bkp/abc-atlas).
 * **Tissue-specific and Species-specific:** Markers and cell types are specific to human brain tissue.
 
+!!! Annotation with immunohistochemistry and single-cell data from the Human Protein Atlas is temporarily unavailable due to changes made to the data on their website. It will be fixed by November 10.
+
 ## Installation
 To install braincellann, use the following command:
 
 ```r
-# Install devtools if you don't have it
+# Install devtools and BiocManager if you don't have them
 install.packages("devtools")
+install.packages("BiocManager")
+
+# Install additional required packages
+BiocManager::install("HPAanalyze")
+BiocManager::install("OmnipathR")
 
 # Install braincellann from GitHub
 devtools::install_github("nikaxpak/braincellann")
