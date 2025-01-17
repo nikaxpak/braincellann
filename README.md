@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="(https://github.com/nikaxpak/braincellann/blob/main/braincellann.png)" alt="Alt text" width="800"/>
+    <img src="https://github.com/nikaxpak/braincellann/blob/main/braincellann.png" alt="Alt text" width="800"/>
 </div>
 
 # braincellann
