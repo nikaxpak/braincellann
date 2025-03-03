@@ -16,6 +16,5 @@ Imports:
     tidyr,
     readxl,
     tibble,
-    HPAanalyze,
     decoupleR
 RoxygenNote: 7.3.2

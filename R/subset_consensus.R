@@ -30,7 +30,7 @@ subset_consensus <- function(df) {
     'CellMarker_1_Microglia' = 0.019123490648607258,
     'PanglaoDB_1_B cell' = 0.019085656039053916,
     'HumanProteinAtlas.IHC_2_Neuron' = 0.018856194876306007,
-    'cell_type_2_Oligodendrocyte' = 0.018431641,
+    'HumanProteinAtlas.Sc_2_Oligodendrocyte' = 0.018431641,
     'Bretigea_1_Neuron' = 0.017137698981102876,
     'HumanProteinAtlas.Sc_2_OPC' = 0.016683335,
     'CellMarker_1_Endothelial' = 0.014364052570275444,

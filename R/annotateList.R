@@ -24,12 +24,12 @@ annotateList <- function(input_list) {
   annotated_panglaodb <- annotate_panglaodb(df)
 
   # HPA annotations return a list
-  #hpa_annotations <- annotate_hpa(df)
-  #annotated_hpa <- hpa_annotations$annotated_hpa
-  #annotated_hpa2 <- hpa_annotations$annotated_hpa2
+  hpa_annotations <- annotate_hpa(df)
+  annotated_hpa <- hpa_annotations$annotated_hpa
+  annotated_hpa2 <- hpa_annotations$annotated_hpa2
 
   # Combine all annotations using left_join on 'index'
-  annotated_df <- cbind(annotated_bretigea, annotated_cellmarker, annotated_panglaodb) #annotated_hpa, annotated_hpa2
+  annotated_df <- cbind(annotated_bretigea, annotated_cellmarker, annotated_panglaodb, annotated_hpa, annotated_hpa2)
   duplicated_cols <- duplicated(names(annotated_df))
   annotated_df <- annotated_df[!duplicated_cols]
 
