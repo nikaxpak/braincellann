@@ -20,6 +20,13 @@ To install braincellann, use the following command:
 # Install devtools if you don't have it
 install.packages("devtools")
 
+# Install devtools and BiocManager if you don't have them
+install.packages("devtools")
+install.packages("BiocManager")
+
+# Install the additionally required package
+BiocManager::install("OmnipathR")
+
 # Install braincellann from GitHub
 devtools::install_github("nikaxpak/braincellann")
 
@@ -30,6 +37,8 @@ devtools::install_github("nikaxpak/braincellann")
 library(braincellann)
 
 gene_list <- c("VIP", "PVALB", "APOE", "CSF1", "IL34")
+
+gene_list <- c("VIP", "PVALB", "APOE", "CSF1")
 
 # Convert the list of genes into a data frame with an index column (if needed)
 # This mimics how the package expects input for annotation functions
