@@ -10,27 +10,27 @@
 #' @noRd
 annotate_panglaodb <- function(df) {
   # Load PanglaoDB data using get_resource (assumes this function is defined elsewhere)
-  data.frame <- get_resource("PanglaoDB")
+  path <- system.file("extdata", "PanglaoDB_markers_27_Mar_2020.tsv", package = "braincellann")
+  data.frame <- read.delim(path, header = TRUE, sep = "\t")
 
   panglaoDB <- data.frame %>%
     filter(organ %in% c("Brain", "Immune system", "Vasculature"),
-           canonical_marker == 'TRUE',
-           human == 'TRUE')
+           canonical.marker == '1')
 
   panglaoDB <- panglaoDB %>%
-    rename(markers = genesymbol)
+    rename(markers = official.gene.symbol)
 
   merged_df <- merge(df, panglaoDB, by = "markers", all.x = TRUE)
   merged_df <- merged_df[order(merged_df$index), ]
 
   subset <- merged_df %>%
-    select(markers, index, cell_type)
+    select(markers, index, cell.type)
 
   combined_df <- subset %>%
     group_by(index) %>%
     summarise(markers = paste(unique(markers), collapse = ", "),
-              cell_type = paste(unique(cell_type), collapse = ", ")) %>%
-    separate(cell_type, into = paste0("PanglaoDB_", 1:2), sep = ",")
+              cell.type = paste(unique(cell.type), collapse = ", ")) %>%
+    separate(cell.type, into = paste0("PanglaoDB_", 1:2), sep = ",")
 
   annotated_panglaodb <- combined_df[, -which(names(combined_df) == "index")]
   return(annotated_panglaodb)

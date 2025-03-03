@@ -2,7 +2,6 @@
 
 export(annotateList)
 exportPattern("^[^.].*")
-import(OmnipathR)
 import(dplyr)
 import(tidyr)
 importFrom(readxl,read_excel)
