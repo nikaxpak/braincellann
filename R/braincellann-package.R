@@ -10,7 +10,6 @@
 #' @importFrom tidyr separate pivot_wider
 #' @importFrom readxl read_excel
 #' @importFrom tibble tibble
-#' @import HPAanalyze
 #' @import decoupleR
 #' @import OmnipathR
 #' @exportPattern ^[^.].*

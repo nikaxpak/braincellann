@@ -19,6 +19,7 @@ rename_cell_types <- function(df) {
                "Glutamatergic neuron", " Glutaminergic neurons",
                "Excitatory neuron", " Excitatory neuron", "excitatory neurons",
                "inhibitory neurons", "neuronal projections", " neuronal projections",
+               "Inhibitory neurons",
                "Neuroendocrine cells", "Neuroblast", " Neuroblasts",
                "Pyramidal cells", "Purkinje neurons", "GABAergic neurons", " GABAergic neurons",
                "Interneurons", " Interneurons", "Cholinergic neurons", " Cholinergic neurons",

@@ -2,7 +2,10 @@
 
 export(annotateList)
 exportPattern("^[^.].*")
+<<<<<<< HEAD
+=======
 import(HPAanalyze)
+>>>>>>> 833224ac63e676c1d9916df0f0767dc160614663
 import(OmnipathR)
 import(decoupleR)
 import(dplyr)
