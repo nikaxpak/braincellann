@@ -51,8 +51,8 @@ annotateList <- function(input_list) {
   # Subset the dataframe based on rows where at least two columns have the same value of interest
   subset_df <- annotated_df[subset_rows, ]
 
-  subset_df <- subset_df %>%
-    mutate(across(everything(), ~na_if(., 'NA')))
+  subset_df %>%
+    mutate(across(where(is.character), ~ na_if(., "NA")))
   # Function to identify consensus cell type and calculate consensus score
   final_df <- subset_consensus(subset_df)
 
